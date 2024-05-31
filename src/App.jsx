@@ -10,15 +10,24 @@ const App = () => {
   const [index, setIndex] = useState(0);
   const { name, job, text, image } = people[index];
 
-  console.log(name);
+  const checkNumber = (number) => {
+    if( number > people.length -1){
+      return 0
+    }
+
+    if( number < 0){
+      return people.length -1 
+    }
+
+    return number;
+
+  }
 
   const nextPerson = () => {
     setIndex((currentIndex)=>{
         const newIndex = currentIndex +1
-        if( newIndex > people.length -1){
-          return 0
-        }
-        return newIndex;
+     
+        return checkNumber(newIndex);
     })
 
    
@@ -27,11 +36,9 @@ const App = () => {
   const prevPerson = () => {
     setIndex((currentIndex)=>{
       const newIndex = currentIndex -1
-      if( newIndex < 0){
-        return people.length -1 
-      }
+    
   
-      return newIndex;
+      return checkNumber(newIndex);
   })
     
   };
@@ -50,15 +57,16 @@ const App = () => {
         <h4 className="author">{name}</h4>
         <p className="job">{job}</p>
         <p className="text">{text}</p>
-      </article>
-      <div>
-        <button className="btn" onClick={prevPerson}>
+        <div>
+        <button className="prev-btn" onClick={prevPerson}>
           <FaChevronLeft />
         </button>
-        <button className="btn" onClick={nextPerson}>
+        <button className="next-btn" onClick={nextPerson}>
           <FaChevronRight />
         </button>
       </div>
+      </article>
+     
     </main>
   );
 };
